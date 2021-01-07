@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register</title>
+</head>
+<body>
+
+  <form action="{{ route('AuthController.register') }}" method="post">
+    <div>
+        <label for="username">Username</label>
+        <input type="text" name="username" value="{{ flashMessages.get('username') || '' }}" />
+        <p>{{ flashMessages.get('errors.username') || '' }}</p>
+      </div>
+    <div>
+      <label for="email">Email</label>
+      <input type="text" name="email" value="{{ flashMessages.get('email') || '' }}" />
+      <p>{{ flashMessages.get('errors.email') || '' }}</p>
+    </div>
+
+    <div>
+      <label for="password">Password</label>
+      <input type="password" name="password" />
+      <p>{{ flashMessages.get('errors.password') || '' }}</p>
+    </div>
+
+    <div>
+      <label for="password_confirmation">Re-Enter Password</label>
+      <input type="password" name="password_confirmation" />
+      <p>{{ flashMessages.get('errors.password_confirmation') || '' }}</p>
+    </div>
+
+    <div>
+      <button type="submit">Create Account</button>
+    </div>
+  </form>
+
+</body>
+</html>

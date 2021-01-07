@@ -1,0 +1,108 @@
+@layout('layouts/base')
+
+ 
+@section('content')
+<style>
+    .progress { 
+    margin-bottom: 0 !important;
+    margin-top:5px;
+    height: 15px;
+}
+</style>
+<div class="">
+  
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="header">
+              <h2>
+                    Profile <small> </small>
+              </h2>
+              <ul class="header-dropdown m-r--5">
+                
+              </ul>
+          </div>
+          <div class="body">
+            <form class="form-horizontal" method="POST" id="pass-form">
+                <div class="form-group">
+                    <label for="NewPassword" class="col-sm-3 control-label">New Password</label>
+                    <div class="col-sm-9">
+                        <div class="form-line">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="New Password" required="required">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="NewPasswordConfirm" class="col-sm-3 control-label">New Password (Confirm)</label>
+                    <div class="col-sm-9">
+                        <div class="form-line">
+                            <input type="password" class="form-control" id="password_confirm" name="password_confirm" placeholder="New Password (Confirm)" required="required">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-3 col-sm-9">
+                        <button type="submit" class="btn btn-danger">SUBMIT</button>
+                    </div>
+                </div>
+            </form>
+          </div>
+      </div>
+      </div>
+    </div>
+   
+</div>
+
+ 
+
+@endsection
+
+@section('js')
+<script>
+$(function(){
+    $('#pass-form').validate({
+        rules : {
+            password : {
+                minlength : 5
+            },
+            password_confirm : {
+                minlength : 5,
+                equalTo : "#password"
+            }
+        },
+        highlight: function (input) {
+            $(input).parents('.form-line').addClass('error');
+        },
+        unhighlight: function (input) {
+            $(input).parents('.form-line').removeClass('error');
+        },
+        errorPlacement: function (error, element) {
+            $(element).parents('.form-line').append(error);
+        },
+        submitHandler: function(form, e) {
+            e.preventDefault()
+            var sdata = objectifyForm($(form).serializeArray())
+            sdata.username = user.username
+            console.log(sdata)
+            layer.load()
+            axios({
+                url:'/api/user/'+user.id+'/',
+                method:'post',
+                data:sdata
+            }).then(function(res){
+                layer.msg('操作成功!', {icon:1})
+                setTimeout(function(){
+                    location.href= '/login/'
+                }, 500) 
+            }).catch(function(e){
+                console.log(e.response)
+                layer.closeAll('loading')
+                layer.msg('操作失败', {icon:2})
+            })
+        }
+    });
+})
+</script>
+ 
+@endsection
