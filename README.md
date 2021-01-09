@@ -16,7 +16,7 @@ mongodb
 
 #### 安装流程
 
-
+```shell
 yum -y install  nodejs
 npm install -g n  #安装n版本管理工具  yarn管理工具 和pm2进程守护工具
 n stable
@@ -35,6 +35,6 @@ node ace build  #
 执行pm2 start build/server.js
 然后pm2 list 查看下有没有问题，状态running表示OK了。  默认端口是2323， 地址是127.0.0.1:2323
 
-
+```
 
 
