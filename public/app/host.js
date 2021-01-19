@@ -648,8 +648,8 @@ var app = {
             },
             confirm:function(){
                 Promise.all([
-                    axios({ url:'/api/hosts/'+app.data.host.id+'/',  method:'delete',  }),
-                    axios({ url:'/api/records/'+app.data.host.id+'/',  method:'delete',  }),
+                    axios({ url:'/api/hosts/'+app.data.id+'/',  method:'delete',  }),
+                    axios({ url:'/api/records/'+app.data.id+'/',  method:'delete',  }),
                 ]).then(function(res){
                     layer.msg('操作成功!', {icon:1})
                     $("#deleteModal").modal('hide')
